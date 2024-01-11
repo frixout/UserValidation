@@ -7,13 +7,14 @@ public class User {
     private int ID;
     private String name;
     private String password;
-
+    private final Role role;
     private static int count = 1;
 
-    public User(String name, String password) {
+    public User(String name, String password, Role role) {
         this.ID = count++;
         this.name = name;
         this.password = password;
+        this.role = role;
     }
 
     public int getID() {
@@ -40,12 +41,16 @@ public class User {
         this.password = password;
     }
 
+    public Role getRole(){
+        return role;
+    }
     @Override
     public String toString() {
         return "User{" +
                 "ID=" + ID +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
+                ", ID='" + role + '\'' +
                 '}';
     }
 }
