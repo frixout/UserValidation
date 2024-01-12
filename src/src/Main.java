@@ -68,6 +68,7 @@ public class Main {
         System.out.println(adminList);
 
         //неудачная попытка выкинуть исключение в стриме, можно ли как то?
+
         /*userMap.entrySet().stream()
                 .filter(x -> x.getValue().getRole() == Role.BANNED)
                 .map(x -> {

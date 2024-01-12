@@ -41,15 +41,16 @@ public class User {
         this.password = password;
     }
 
-    public Role getRole(){
+    public Role getRole() {
         return role;
     }
-    private void setRole(Role role){
+
+    private void setRole(Role role) {
         this.role = role;
     }
 
-    public void actionSetName(User user, String name){
-        if (role == Role.ADMIN && user.getRole() != Role.ADMIN){
+    public void actionSetName(User user, String name) {
+        if (role == Role.ADMIN && user.getRole() != Role.ADMIN) {
             user.setName(name);
         } else if (this.equals(user)) {
             user.setName(name);
@@ -57,8 +58,9 @@ public class User {
             System.out.println("У вас, " + this.name + ", нет прав изменить имя у пользователя " + user.getName());
         }
     }
-    public void actionSetPassword(User user, String password){
-        if (role == Role.ADMIN && user.getRole() != Role.ADMIN){
+
+    public void actionSetPassword(User user, String password) {
+        if (role == Role.ADMIN && user.getRole() != Role.ADMIN) {
             user.setPassword(password);
         } else if (this.equals(user)) {
             user.setPassword(password);
@@ -66,8 +68,9 @@ public class User {
             System.out.println("У вас, " + this.name + ", нет прав изменить пароль у пользователя " + user.getName());
         }
     }
-    public void actionSetRole(User user, Role role1){
-        if (role == Role.ADMIN && user.getRole() != Role.ADMIN){
+
+    public void actionSetRole(User user, Role role1) {
+        if (role == Role.ADMIN && user.getRole() != Role.ADMIN) {
             user.setRole(role1);
         } else if (role == Role.ADMIN && this.equals(user)) {
             user.setRole(role1);
@@ -75,6 +78,7 @@ public class User {
             System.out.println("У вас, " + this.name + ", нет прав изменить роль у пользователя " + user.getName());
         }
     }
+
     @Override
     public String toString() {
         return "User{" +
@@ -84,8 +88,9 @@ public class User {
                 ", Role='" + role + '\'' +
                 '}';
     }
+
     public static class Validations {
-        public static Map<Integer, User > toValidate(List<User> userList) {
+        public static Map<Integer, User> toValidate(List<User> userList) {
             return userList.stream()
                     .filter(x -> x.getPassword().length() > 8 && Character.isLetter(x.getName().charAt(0)))
                     .collect(Collectors.toMap(User::getID, user -> user));
