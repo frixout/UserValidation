@@ -17,7 +17,7 @@ public class Main {
         userList.add(new User("1Alex", "Password2", Role.USER));
         userList.add(new User("Nikita", "Password2", Role.BANNED));
         userList.add(new User("Aidar", "Password2", Role.ADMIN));
-        Map<Integer, User > userMap = User.Validations.toValidate(userList);
+        Map<Integer, User > userMap = Validations.toValidate(userList);
         //System.out.println(userMap);
 
         List<User> adminList = userMap.entrySet().stream()
@@ -68,7 +68,6 @@ public class Main {
         System.out.println(adminList);
 
         //неудачная попытка выкинуть исключение в стриме, можно ли как то?
-
         /*userMap.entrySet().stream()
                 .filter(x -> x.getValue().getRole() == Role.BANNED)
                 .map(x -> {

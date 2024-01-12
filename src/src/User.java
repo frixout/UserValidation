@@ -6,12 +6,12 @@ import java.util.stream.Stream;
 public class User {
     private int ID;
     private String name;
-    private String password;
+    public String password;
     private Role role;
-    private static int count = 1;
+    private static Long count = 1L;
 
     public User(String name, String password, Role role) {
-        this.ID = count++;
+        this.ID = Math.toIntExact(count++);
         this.name = name;
         this.password = password;
         this.role = role;
@@ -33,7 +33,7 @@ public class User {
         this.name = name;
     }
 
-    private String getPassword() {
+    String getPassword() {
         return password;
     }
 
@@ -87,13 +87,5 @@ public class User {
                 ", Password='" + password + '\'' +
                 ", Role='" + role + '\'' +
                 '}';
-    }
-
-    public static class Validations {
-        public static Map<Integer, User> toValidate(List<User> userList) {
-            return userList.stream()
-                    .filter(x -> x.getPassword().length() > 8 && Character.isLetter(x.getName().charAt(0)))
-                    .collect(Collectors.toMap(User::getID, user -> user));
-        }
     }
 }
