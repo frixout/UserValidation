@@ -3,9 +3,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Main {
-    public static void main(String[] args) throws BannedUser {
+    public static void main(String[] args) throws BannedUserException {
         List<User> userList = new ArrayList<>();
         userList.add(new User("Alina", "Password2", Role.USER));
         userList.add(new User("Dima", "Password2", Role.ADMIN));
@@ -20,9 +21,9 @@ public class Main {
         Map<Integer, User > userMap = Validations.toValidate(userList);
         //System.out.println(userMap);
 
-        List<User> adminList = userMap.entrySet().stream()
-                .filter(x -> x.getValue().getRole() == Role.ADMIN)
-                .collect(ArrayList::new, (list, element) -> list.add(element.getValue()), ArrayList::addAll);
+        List<User> adminList = userMap.values().stream()
+                .filter(x -> x.getRole() == Role.ADMIN)
+                .collect(Collectors.toList());
         ;
         //System.out.println(adminList);
 
@@ -33,15 +34,15 @@ public class Main {
                 userMapIterator.remove();
             } else if (userEntry.getValue().getRole() == Role.BANNED) {
                 try {
-                    throw new BannedUser();
-                }catch (BannedUser e) {
+                    throw new BannedUserException();
+                }catch (BannedUserException e) {
                     System.out.println("Остался забаненный пользователь: ID: " + userEntry.getValue().getID() +  ", Name: " + userEntry.getValue().getName());
                     userMapIterator.remove();
                 }
             }
-
         }
-        System.out.println(userMap);
+
+        //System.out.println(userMap);
 
         adminList.get(0).actionSetName(userMap.get(1), "NeAlina");
         adminList.get(0).actionSetName(adminList.get(1),"NeAidar");
@@ -67,17 +68,16 @@ public class Main {
         System.out.println(userMap);
         System.out.println(adminList);
 
-        //неудачная попытка выкинуть исключение в стриме, можно ли как то?
+        //удачная попытка выкинуть исключение в стриме
         /*userMap.entrySet().stream()
                 .filter(x -> x.getValue().getRole() == Role.BANNED)
-                .map(x -> {
+                .forEachOrdered(x -> {
                     try {
                         throw new Exception();
                     } catch (Exception e) {
                         System.out.println("Остался забаненный пользователь");
                     }
-                    return null;
-                })
+                });
         ;*/
 
     }
