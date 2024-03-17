@@ -24,8 +24,7 @@ public class Main {
         List<User> adminList = userMap.values().stream()
                 .filter(x -> x.getRole() == Role.ADMIN)
                 .collect(Collectors.toList());
-        ;
-        //System.out.println(adminList);
+
 
         Iterator<Map.Entry<Integer, User>> userMapIterator = userMap.entrySet().iterator();
         while(userMapIterator.hasNext()){
